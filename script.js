@@ -1,47 +1,40 @@
-const APP_NAME = "SpendWise";
-let userName = prompt("Welcome to SpendWise! What is your name?");
-let monthlyBudget = Number(prompt("Hi " + userName + ", what is your monthly budget?"));
-let foodExpense = Number(prompt("How much did you spend on Food?"));
-let transportExpense = Number(prompt("How much did you spend on Transport?"));
-let rentExpense = Number(prompt("How much did you spend on Rent?"));
-let entertainmentExpense = Number(prompt("How much did you spend on Entertainment?"));
-let utilitiesExpense = Number(prompt("How much did you spend on Utilities?"));
+let expenses = [];
 
-function calculateTotalExpenses(food, transport, rent, entertainment, utilities) {
-  return food + transport + rent + entertainment + utilities;
-}
-function calculateBalance(budget, total) {
-  return budget - total;
-}
-function calculatePercentageSpent(total, budget) {
-  return (total / budget) * 100;
-}
-function getBudgetStatus(balance) {
-  if (balance < 0) {
-    return "OVER BUDGET! You spent more than your budget.";
-  } else if (balance === 0) {
-    return "You used exactly your budget.";
-  } else {
-    return "You are within budget. Good job!";
+document.getElementById("addBtn").addEventListener("click", function() {
+  let name = document.getElementById("name").value;
+  let amount = Number(document.getElementById("amount").value);
+  let income = Number(document.getElementById("income").value);
+
+  if (name === "" || amount <= 0 || income <= 0) {
+    document.getElementById("result").textContent = "Please fill all fields with valid values.";
+    return;
   }
-}
 
-let totalExpenses = calculateTotalExpenses(foodExpense, transportExpense, rentExpense, entertainmentExpense, utilitiesExpense);
-let remainingBalance = calculateBalance(monthlyBudget, totalExpenses);
-let percentSpent = calculatePercentageSpent(totalExpenses, monthlyBudget);
-let status = getBudgetStatus(remainingBalance);
+  expenses.push({ name: name, amount: amount });
 
-console.log("===== " + APP_NAME + " REPORT =====");
-console.log("User: " + userName);
-console.log("Monthly Budget: Ksh " + monthlyBudget);
-console.log("Total Expenses: Ksh " + totalExpenses);
-console.log("Remaining Balance: Ksh " + remainingBalance);
-console.log("Percentage Spent: " + percentSpent.toFixed(1) + "%");
-console.log("Status: " + status);
+  let total = 0;
+  let listHTML = "";
+  for (let i = 0; i < expenses.length; i++) {
+    total += expenses[i].amount;
+    listHTML += expenses[i].name + ": " + expenses[i].amount + "<br>";
+  }
 
-document.getElementById("result").innerHTML =
-  "<h3>Hello " + userName + "</h3>" +
-  "<p><strong>Budget:</strong> Ksh " + monthlyBudget + "</p>" +
-  "<p><strong>Total Spent:</strong> Ksh " + totalExpenses + "</p>" +
-  "<p><strong>Remaining:</strong> Ksh " + remainingBalance + "</p>" +
-  "<p><strong>Status:</strong> " + status + "</p>";
+  let balance = income - total;
+  let message = "";
+  if (balance < 0) {
+    message = "OVER BUDGET! You spent too much.";
+  } else if (balance === 0) {
+    message = "You used exactly your budget.";
+  } else if (balance < income * 0.2) {
+    message = "Warning: You are almost out of money.";
+  } else {
+    message = "Great! You are within budget.";
+  }
+
+  document.getElementById("list").innerHTML = listHTML;
+  document.getElementById("result").textContent =
+    "Total: " + total + " | Balance: " + balance + " | " + message;
+
+  document.getElementById("name").value = "";
+  document.getElementById("amount").value = "";
+});
