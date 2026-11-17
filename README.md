@@ -1,21 +1,22 @@
-# SpendWise - JavaScript Foundation
+# SpendWise Dashboard - Week 5
 
-## What Your SpendWise Project Does
-SpendWise helps users track their monthly budget. It asks for name, budget and expenses, calculates totals and shows remaining balance.
+A simple budget tracker built with HTML, CSS and JavaScript.
 
-## JavaScript Concepts Implemented
-Variables (let, const), Data Types, prompt(), Number(), Functions, Calculations, If/Else, console.log()
+## Features
+- Enter monthly income
+- Add expenses with name and amount
+- Uses Array to store expenses
+- Uses Loop to calculate total
+- Uses addEventListener for button click
+- Uses DOM to show list and result
+- Uses if/else to check budget status: Over Budget, Exact, Warning, Within Budget
 
-## How Variables Are Being Used
-const APP_NAME never changes. let userName, monthlyBudget, foodExpense etc. store user input. let totalExpenses, remainingBalance store results.
+## How to Use
+1. Open index.html
+2. Enter your income
+3. Enter expense name and amount
+4. Click Add Expense
+5. See total, balance and message
 
-## How User Input Is Collected
-Using prompt() dialogs. Number() converts text to numbers for math.
-
-## How Calculations Are Performed
-Total Expenses = Food + Transport + Rent + Entertainment + Utilities
-Remaining Balance = Budget - Total Expenses
-Percentage Spent = (Total / Budget) * 100
-
-## How Functions Help Organize The Code
-calculateTotalExpenses(), calculateBalance(), calculatePercentageSpent(), getBudgetStatus() each do one job so code is reusable and readable.
+## Tech Used
+HTML, CSS, JavaScript
